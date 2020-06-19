@@ -98,48 +98,46 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # We will use the light as a conditional
-        self.set_light_on()
-        while self.light_is_on():
+
+        # Following rules && Stretch
+        if self.can_move_right() is False and self.light_is_on() is False:
+            return
+        else:
             self.set_light_off()
-
+            self.swap_item()
             while self.can_move_right():
-                # Check the next item
-                # Greater
-                # Pick up item in front
-                if self.compare_item() == 1:
-                    self.move_right()
-                # Smaller
-                # Swap Items
-                elif self.compare_item() == -1:
-                    self.swap_item()
-                    self.move_right()
-                # Equal
-                elif self.compare_item() == 0:
-                    self.move_right()
-                # None
-                else:
-                    self.swap_item()
-                    self.move_right()
-
-            # While can move left
-            while self.can_move_left():
-                # Check the next item
-                # Greater
-                # Swap Item
+                self.move_right()
                 if self.compare_item() == 1:
                     self.swap_item()
-                    self.move_left()
                     self.set_light_on()
-                # Smaller
-                elif self.compare_item() == -1:
-                    self.move_left()
-                # Equal
-                elif self.compare_item() == 0:
-                    self.move_left()
-                # None
-                else:
-                    self.move_left()
+            while self.compare_item() is not None:
+                self.move_left()
+            self.swap_item()
+            self.move_right()
+            return self.sort()
+
+        # Following rules without stretch
+        # self.set_light_on()
+        # while self.light_is_on():
+        #     self.set_light_off()
+        #
+        #     while self.can_move_right():
+        #         if self.compare_item() == 1 or self.compare_item() == 0:
+        #             self.move_right()
+
+        #         else:
+        #             self.swap_item()
+        #             self.move_right()
+
+        #     while self.can_move_left():
+        #         if self.compare_item() == 1:
+        #             self.swap_item()
+        #             self.move_left()
+        #             self.set_light_on()
+        #         else:
+        #             self.move_left()
+
+        # Without following rules
         # for i in range(0, len(self._list) - 1):
         #     curr = i
         #     for j in range(i + 1, len(self._list)):
